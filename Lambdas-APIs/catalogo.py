@@ -8,7 +8,18 @@ dynamodb = boto3.resource('dynamodb')
 
 def lambda_handler(event, context):
 
-    http_res = compose_response(queryDynamo("HistOrd"))
+    queryType = event['queryStringParameters']['query']
+    
+    try:
+        cli = event['queryStringParameters']['CLI']
+    except:
+        cli = False
+
+    if cli:
+        http_res = compose_response(queryDynamo(queryType, cliente=int(cli)))
+    else: 
+        http_res = compose_response(queryDynamo(queryType))
+
     return http_res
 
 
@@ -29,7 +40,7 @@ def compose_body(queryResults):
 
     return res_body
 
-def queryDynamo(queryType, cliente = "", orden = ""):
+def queryDynamo(queryType, cliente = 396566981, orden = ""):
     queryResults = list()
 
     ordenes = dynamodb.Table('Ordenes')
@@ -38,29 +49,26 @@ def queryDynamo(queryType, cliente = "", orden = ""):
     match queryType:
         case "AllItems":
 
-            response = productos.scan(
-                FilterExpression = Attr('Categoria').eq('Prenda')
-            )
+            response = productos.scan()
 
             queryResults = response['Items']
 
-        case "TopItems": 
-            responses = {}
+        case "Rec": 
+            response = productos.scan()
+
+            queryResults = response['Items']
 
         case "HistOrd":
-
-            clienteID = 396566981
-
             cliResponse = ordenes.scan(
                 ProjectionExpression = 'Cliente[1]',
-                FilterExpression = Attr('Cliente').contains(clienteID)
+                FilterExpression = Attr('Cliente').contains(cliente)
             )
+            print(cliente)
             cliNom = cliResponse['Items'][0]
-            cliNom['Cliente'] = cliNom['Cliente'][0]
 
             response = ordenes.scan(
                 ProjectionExpression = 'OrdenID, Producto[0]',
-                FilterExpression = Attr('Cliente').contains(clienteID)
+                FilterExpression = Attr('Cliente').contains(cliente)
             )
 
             item = response['Items']
