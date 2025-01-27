@@ -51,8 +51,15 @@ def queryDynamo(queryType, cliente = "", orden = ""):
 
             clienteID = 396566981
 
+            cliResponse = ordenes.scan(
+                ProjectionExpression = 'Cliente[1]',
+                FilterExpression = Attr('Cliente').contains(clienteID)
+            )
+            cliNom = cliResponse['Items'][0]
+            cliNom['Cliente'] = cliNom['Cliente'][0]
+
             response = ordenes.scan(
-                ProjectionExpression = 'Cliente[1], OrdenID, Producto[0]',
+                ProjectionExpression = 'OrdenID, Producto[0]',
                 FilterExpression = Attr('Cliente').contains(clienteID)
             )
 
@@ -67,6 +74,8 @@ def queryDynamo(queryType, cliente = "", orden = ""):
                 )
 
                 item[i]['ProductoDetalles'] = response['Items'][0]
+            
+            item.insert(0, cliNom)
 
             queryResults = item
 
