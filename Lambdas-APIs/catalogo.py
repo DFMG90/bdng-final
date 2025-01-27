@@ -7,9 +7,8 @@ from io import StringIO
 dynamodb = boto3.resource('dynamodb')
 
 def lambda_handler(event, context):
-    productos = dynamodb.Table('Productos')
 
-    http_res = compose_response(queryDynamo(productos, "AllItems"))
+    http_res = compose_response(queryDynamo("HistOrd"))
     return http_res
 
 
@@ -25,29 +24,21 @@ def compose_response(body):
 
 def compose_body(queryResults):
     res_body = {}
-    for i in range(len(queryResults) -1):
-        item = queryResults[i]
-        ID = item['ProductID']
-        res_body[ID] = {}
-        
-        preDump = {}
 
-        preDump['ID'] = item['ProductID']
-        preDump['producto'] = item['Producto']
-        preDump['Categoria'] = item['Categoria']
-        preDump['Descripcion'] = item['Descripcion']
-        preDump['imgURL'] = item['imgURL']
 
-        res_body[ID] = json.dumps(preDump)
 
     return res_body
 
-def queryDynamo(tabla, queryType):
+def queryDynamo(queryType, cliente = "", orden = ""):
     queryResults = list()
+
+    ordenes = dynamodb.Table('Ordenes')
+    productos = dynamodb.Table('Productos')
 
     match queryType:
         case "AllItems":
-            response = tabla.scan(
+
+            response = productos.scan(
                 FilterExpression = Attr('Categoria').eq('Prenda')
             )
 
@@ -55,5 +46,30 @@ def queryDynamo(tabla, queryType):
 
         case "TopItems": 
             responses = {}
+
+        case "HistOrd":
+
+            clienteID = 396566981
+
+            response = ordenes.scan(
+                ProjectionExpression = 'Cliente[1], OrdenID, Producto[0]',
+                FilterExpression = Attr('Cliente').contains(clienteID)
+            )
+
+            item = response['Items']
+
+            for i in range(len(item)):
+                productID = str(item[i]['Producto'][0])
+
+                response = productos.query(
+                    #ProjectionExpression = 'Producto, Categoria, Descripcion, imgURL',
+                    KeyConditionExpression = Key('ProductID').eq(productID)
+                )
+
+                item[i]['ProductoDetalles'] = response['Items'][0]
+
+            queryResults = item
+
+
 
     return queryResults
