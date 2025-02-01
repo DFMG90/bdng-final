@@ -1,5 +1,5 @@
 # bdng-final
-[David M.](https://github.com/DFMG90), [Elizabeth E.](https://github.com/EliJohana7), Izzy D.
+[David M.](https://github.com/DFMG90), [Elizabeth E.](https://github.com/EliJohana7), [Izzy D](https://github.com/APapayaWarrior).
 
 ---
 
