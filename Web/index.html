@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://img.freepik.com/fotos-premium/imagen-fondo-boutique-ropa-disenador-espacio-copiar-ropa-accesorios_236854-52692.jpg?w=900'); /* Cambia esta URL por la ruta de tu imagen */
+			background-size: cover; /* Esto hace que la imagen cubra toda la pantalla */
+			background-position: center; /* Esto asegura que la imagen se centre en la pantalla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+			box-sizing: border-box; 
+        }
+
+        .form-group input:focus {
+            border-color: #000000;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #373737;
+        }
+
+        .error-tooltip {
+            display: none;
+            margin-top: 1rem;
+            color: #f6a4a4;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeYXc0p-cPIUYFfUshLOcIVHWnwgyqzLqX3Q&s" alt="Logo" style="width: 100px; height: auto;"></h1>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="button" class="login-btn" id="login-btn">Login</button>
+        </form>
+        <div id="error-tooltip" class="error-tooltip">Falló inicio de sesión, datos incorrectos</div>
+    </div>
+
+    <script>
+        // Lista de usuarios y contraseñas con datos adicionales
+        const users = {
+            "usuario1": {
+                password: "password1",
+                page: "ListadoProductos2.html",
+                id: "396566891",
+                name: "Bertha Mosson",
+                email: "bmosson@gmail.com",
+				foto: "https://images.imagenmia.com/model_version/1df843cb6790d0651e956078c93e0f37a1535300950019cc576ef7b8cc5d62a5/1723806278854-output.jpg"
+            },
+            "usuario2": {
+                password: "password2",
+                page: "ListadoProductos2.html",
+                id: "830372285",
+                name: "Steve Leeming",
+                email: "sleeming@gmail.com",
+				foto: "https://images.imagenmia.com/model_version/c5e4533b56d3e5048df34eec31df7cfa2f0a10f477886af442a2fb372569324e/1723815980081-output.jpg"
+            },
+            "usuario3": {
+                password: "password3",
+                page: "ListadoProductos2.html",
+                id: "235277937",
+                name: "Dakota Weekley",
+                email: "dweekley@gmail.com",
+				foto: "https://t3.ftcdn.net/jpg/06/64/39/86/360_F_664398660_ZDfdq6JjxnruszEDbGLrtJaS4oHYIz3O.jpg"
+            }
+        };
+
+        document.getElementById("login-btn").addEventListener("click", function () {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Verificar credenciales
+            if (users[username] && users[username].password === password) {
+                // Obtener los datos del usuario
+                const user = users[username];
+
+                // Redirigir a la página con parámetros
+                const params = new URLSearchParams({
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+					foto: user.foto
+                });
+                window.location.href = `${user.page}?${params.toString()}`;
+            } else {
+                // Mostrar tooltip de error
+                const errorTooltip = document.getElementById("error-tooltip");
+                errorTooltip.style.display = "block";
+
+                // Ocultar el tooltip después de 3 segundos
+                setTimeout(() => {
+                    errorTooltip.style.display = "none";
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

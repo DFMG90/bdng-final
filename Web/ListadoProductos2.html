@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda de Ropa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* Estilos de la página */
+  body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background: linear-gradient(135deg, #f7f7f7, #e0e0e0);
+	margin: 0;
+	padding: 0;
+
+  }
+  
+
+  header {
+    display: flex;
+    justify-content: space-between; /* Asegura que los elementos estén separados */
+    align-items: center; /* Centra los elementos verticalmente */
+    background-color: black;
+    color: black;
+    padding: 20px 40px;; /* Ajuste de padding para que haya suficiente espacio */
+  }
+  
+  .segundo-header-clase {
+	background-image: url('https://cdn.pixabay.com/animation/2024/03/10/18/48/18-48-44-282_512.gif');
+      background-size: cover; /* Ajusta el GIF para cubrir todo el fondo */
+      background-position: center; /* Centra el fondo */
+	  color: white;
+    }
+
+  .logo {
+    font-size: 24px;
+
+
+  }
+
+  nav {
+    margin-top: 10px;
+  }
+
+  nav a:hover {
+    color: #cc673a;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+nav a:focus {
+  outline: none;
+}
+  nav a {
+    color: #ffffff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+.card2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+     height: 4.5em; /* Basado en la cantidad de líneas */
+
+    margin: 10px;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 200px;
+   
+    margin: 10px;
+}
+  .container {
+    padding: 20px;
+  }
+
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .filter-bar select {
+    padding: 10px;
+    font-size: 16px;
+	border: 2px solid #ddd;
+	border-radius: 5px;
+    cursor: pointer;
+	border-color: black;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: scale(1.05);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+
+  .info {
+    padding:15px;
+	overflow: hidden; /* Oculta contenido que exceda el tamaño */
+  }
+
+  .info h4 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .info p {
+    color: #666;
+    font-size: 14px;
+	flex-grow: 1;
+    
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* Limita el número de líneas visibles */
+    -webkit-box-orient: vertical;
+  }
+
+  .price {
+    font-size: 16px;
+    color: #ff6347;
+    margin: 10px 0;
+  }
+
+  button {
+	background-color: #FF6347;
+	color: white;
+	padding: 12px 20px;
+	font-size: 16px;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	margin: 0 auto; /* Centra el botón horizontalmente si está dentro de un div */
+	display: block; 
+  transition: all 0.3s ease-in-out;
+}
+.description {
+    height: 20px; /* Ajusta la altura según tus necesidades */
+    overflow: hidden; /* Esconde el contenido extra */
+    text-overflow: ellipsis; /* Muestra "..." si el texto es muy largo */
+    white-space: normal; /* Permite múltiples líneas */
+	display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6; /* Muestra exactamente 6 líneas */
+}
+  button:hover {
+	background-color: none;
+  transform: scale(1.05);
+}
+* Estilo para el botón de WhatsApp flotante */
+.whatsapp-button {
+  position: fixed;
+  bottom: 20px; /* Distancia desde el fondo */
+  right: 20px;  /* Distancia desde el lado derecho */
+  z-index: 9999; /* Asegura que esté por encima de otros elementos */
+}
+
+.whatsapp-button img {
+  width: 50px; /* Tamaño del icono */
+  height: 50px; /* Tamaño del icono */
+margin: 0;
+vertical-align: middle;
+ padding: 0;
+ display: inline-block;
+}
+
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+  }
+  .announcement {
+  background-color: #FF6347; /* Cambia el color de fondo */
+  color: black; /* Cambia el color del texto, si lo necesitas */
+  padding: 10px 20px; /* Añade un poco de espacio interno */
+  font-weight: bold; /* Cambia el estilo del texto si lo deseas */
+  border-radius: 5px; /* Opcional: redondear las esquinas */
+}
+.description {
+    font-size: 14px; /* Tamaño de fuente */
+    line-height: 1.5; /* Altura de línea */
+    overflow: hidden; /* Evita desbordamientos */
+    text-overflow: ellipsis; /* Muestra "..." si el texto es largo */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Número máximo de líneas visibles */
+    -webkit-box-orient: vertical;
+}
+
+header:first-of-type {
+  background-color: #f4ebf5; /* Cambia el color de fondo del primer header */
+ 
+}
+</style>
+
+
+
+</head>
+<body>
+<header>
+  <a>
+   <img src="https://izzyshopstlouis.com/cdn/shop/files/3.png?v=1728041300" alt="logotipo" style="vertical-align: middle; margin-left: 5px; height: 4em;  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); ">
+   </a>
+  <!-- Segundo Header: por ejemplo, anuncio o contacto -->
+<center>
+  <img src="https://img.icons8.com/?size=48&id=Ri8UCAgVBvJX&format=png">
+<h1 id="greeting" style="margin-top: 10px; font-size: 18px;">Envios a todo España </h1></center>
+   
+  <a href="https://wa.me/51953703164"  class="whatsapp-button">
+  <img src="https://img.icons8.com/?size=512&id=85088&format=png" alt="WhatsApp">
+  <img src="https://img.icons8.com/?size=256&id=85140&format=png" alt="instagram">
+  <img src="https://img.icons8.com/?size=512&id=85126&format=png" alt="facebook">
+  
+</a>
+</header>
+
+  <header class="segundo-header-clase">
+    <div class="logo">Tienda de Ropa</div>
+	<div id="greeting" style="margin-top: 10px; font-size: 18px; color: #fff;"></div>
+	<nav>
+
+  
+</nav>
+	 <!--  <button id="logout" style="margin-top: 10px;">Cerrar Sesión</button>-->
+    <nav>
+      <a href="#" id="homeLink">Inicio</a>
+      <a href="#" id="productsLink">Productos</a>
+	  <a href="#" id="pedidosLink">Pedidos</a>
+      <a href="#" id="contactLink">Contacto</a>
+	  <a href="#" id="comprasLink">Compras</a>
+    </nav>
+  </header>
+
+  <div class="container">
+
+   <div id="welcome" class="welcome"></div> <!-- Saludo personalizado -->
+    <div class="filter-bar">
+      <select id="categoryFilter">
+        <option value="all">Todos</option>
+        <option value="Prenda">Prendas</option>
+        <option value="Accesorio">Accesorios</option>
+      </select>
+      <select id="sortFilter">
+        <option value="name-asc">Nombre A-Z</option>
+        <option value="name-desc">Nombre Z-A</option>
+      </select>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Los productos se agregarán dinámicamente aquí -->
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Tienda de Ropa. Todos los derechos reservados.
+	<!-- WhatsApp Button -->
+
+  </footer>
+
+  <script>
+    const categoryFilter = document.getElementById('categoryFilter');
+    const sortFilter = document.getElementById('sortFilter');
+    const productsGrid = document.getElementById('productsGrid');
+
+
+const welcome = document.getElementById('welcome');
+
+    // Obtener el nombre del usuario desde la URL
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('id');
+	const userName = params.get('name');
+	const userE = params.get('email');
+	const userFoto = params.get('foto');
+	// Obtener el botón de cerrar sesión
+// Obtener el enlace "Pedidos"
+const pedidosLink = document.getElementById('pedidosLink');
+
+// Función para actualizar el enlace con los parámetros de la URL
+function updatePedidosLink() {
+  const userId = params.get('id');
+  const userName = params.get('name');
+  const userEmail = params.get('email');
+  const userFoto = params.get('foto');
+
+  // Crear la URL con los parámetros
+  const pedidosUrl = `Satisfaccion3.html?id=${userId}&name=${userName}&email=${userEmail}&foto=${userFoto}`;
+	console.log('Enviando a la API:', { userId, userName, userEmail, userFoto });
+  // Actualizar el href del enlace
+  pedidosLink.setAttribute('href', pedidosUrl);
+}
+
+// Llamar a la función para actualizar el enlace cuando se cargue la página
+updatePedidosLink();
+
+
+// Agregar el evento de clic al botón
+
+
+    // Mostrar saludo personalizado si el nombre está presente
+    if (userName) {
+      welcome.innerHTML  = `<h4><center> Hola, ${userName}! Bienvenido a la tienda.<br><br></center></h4>`;
+    } else {
+      welcome.innerHTML  = `<h4><center> Hola, Bienvenido a la tienda.<br><br></center></h4>`;
+    }
+
+	const apiUrl = 'https://cors-anywhere.herokuapp.com/https://7s98pr5chh.execute-api.eu-west-3.amazonaws.com/tienda/catalogo/?query=AllItems';
+ // Cambia con tu URL real de la API
+
+    // Función para obtener los productos desde la API
+    async function fetchProducts() {
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        // Filtrar y ordenar productos
+        filterAndSortProducts(data);
+      } 
+	  
+	  catch (error) {
+        console.error('Error al obtener los productos:', error);
+      }
+	  
+    }
+
+    // Función para mostrar los productos
+    function displayProducts(filteredProducts) {
+      productsGrid.innerHTML = ''; // Limpiar productos previos
+      filteredProducts.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+
+        productCard.innerHTML = `
+          <img src="${product.urls3}" alt="${product.Producto}">
+          <div class="info">
+            <h4><center>${product.Producto}</center></h4>
+			
+            <div class="card">
+			<div class="descripcion">
+			<p><center>${product.descripcion}</center></p>
+			</div>
+			</div>
+        <p class="price"><center>Precio: $${product.precio}</center></p> <!-- Aquí mostramos el precio dinámicamente -->
+            <button><center>Agregar al Carrito</center></button>
+          </div>
+        `;
+        
+        productsGrid.appendChild(productCard);
+      });
+    }
+
+    // Función para filtrar y ordenar los productos
+    function filterAndSortProducts(products) {
+      let filteredProducts = [...products];
+
+      // Filtrar por categoría
+      const selectedCategory = categoryFilter.value;
+      if (selectedCategory !== 'all') {
+        filteredProducts = filteredProducts.filter(product => product.categoria === selectedCategory);
+      }
+
+      // Ordenar productos
+      const selectedSort = sortFilter.value;
+      if (selectedSort === 'name-asc') {
+        filteredProducts.sort((a, b) => a.Producto.localeCompare(b.Producto));
+      } else if (selectedSort === 'name-desc') {
+        filteredProducts.sort((a, b) => b.Producto.localeCompare(a.Producto));
+      }
+
+      displayProducts(filteredProducts); // Mostrar los productos filtrados y ordenados
+    }
+
+    // Inicializar la página cargando todos los productos
+    fetchProducts();
+
+    // Event listeners para filtros
+    categoryFilter.addEventListener('change', () => fetchProducts());
+    sortFilter.addEventListener('change', () => fetchProducts());
+  </script>
+
+</body>
+</html>
