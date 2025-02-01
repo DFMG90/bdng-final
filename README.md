@@ -8,7 +8,7 @@ Presentamos un proyect de ETL utilizando DynamoDB como base de datos y AWS como 
 Servimos los datos a una pagina web y utilizamos Collaborative Filtering para dar recomendaciones a los clientes. Para una explicación del proyecto en general ver la presentación `BDNG proyecto gurpal.pdf`.
 
 ## Cargando las tablas
-Para cargar las tablas es necesario conectarse a AWS y crear las tablas `productos` y `Ordenes` en DynamoDB. **El notebook `ETL/CrearDynamo.ipynb` es solo informativo.** Para cargar las tablas utilizar los scripts `ETL/insertarOrdenes.py` y `ETL/insertarProductos.py`.
+Para cargar las tablas es necesario conectarse a AWS y crear las tablas `productos` y `Ordenes` en DynamoDB. **El notebook `ETL/CrearDynamo.ipynb` es solo informativo.** Para cargar las tablas utilizar los scripts `ETL/insertarOrdenes.py` y `ETL/insertarProductos.py`. Es necesario proporcionar credenciales AWS en duro o atraves de Environment Variables.
 
 ## API 
 
@@ -25,3 +25,8 @@ Los usuarios para acceder a la web son:
 - username: usuario1 -- password: password1
 - username: usuario2 -- password: password2
 - username: usuario3 -- password: password3
+
+---
+
+# Referencias
+- Datos: Adarsh Anil Kumar via Kaggle; Datos sinteticos de Mockaro
